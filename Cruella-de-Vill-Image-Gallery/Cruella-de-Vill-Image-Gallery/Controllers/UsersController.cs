@@ -17,12 +17,14 @@
 
                 string nickname = string.Empty;
                 var sessionKey = UsersRepository.LoginUser(user.Email, user.AuthCode, out nickname);
+
                 return new UserLoggedModel()
                 {
                     Nickname = nickname,
                     SessionKey = sessionKey
                 };
             });
+
             return responseMsg;
         }
 
@@ -34,12 +36,14 @@
             {
                 string nickname = string.Empty;
                 var sessionKey = UsersRepository.LoginUser(user.Email, user.AuthCode, out nickname);
+                
                 return new UserLoggedModel()
                 {
                     Nickname = nickname,
                     SessionKey = sessionKey
                 };
             });
+
             return responseMsg;
         }
 
@@ -51,6 +55,7 @@
             {
                 UsersRepository.LogoutUser(sessionKey);
             });
+
             return responseMsg;
         }
     }

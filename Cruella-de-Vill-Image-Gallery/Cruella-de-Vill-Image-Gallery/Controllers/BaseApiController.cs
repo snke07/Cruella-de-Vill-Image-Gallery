@@ -1,11 +1,11 @@
 ﻿namespace CruellaDeVillImageGallery.Controllers
 {
-    using CruellaDeVillImageGallery.Models;
     using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+    using CruellaDeVillImageGallery.Models;
 
     public class BaseApiController : ApiController
     {
@@ -25,6 +25,11 @@
             ErrorToStatusCodes["ERR_DUP_NICK"] = HttpStatusCode.Conflict;
             ErrorToStatusCodes["INV_USR_AUTH"] = HttpStatusCode.BadRequest;
             ErrorToStatusCodes["ERR_INV_USR"] = HttpStatusCode.BadRequest;
+            // Album error codes
+            ErrorToStatusCodes["ERR_INV_ALBM"] = HttpStatusCode.BadRequest;
+            ErrorToStatusCodes["ERR_INV_OWNR"] = HttpStatusCode.BadRequest;
+            ErrorToStatusCodes["INV_ALBM_LEN"] = HttpStatusCode.BadRequest;
+            ErrorToStatusCodes["INV_ALBM_CHARS"] = HttpStatusCode.BadRequest;
         }
 
         public BaseApiController()

@@ -22,5 +22,30 @@
 
             return user;
         }
+
+        protected static Album GetAlbum(int albumId, ImageLibraryEntities context)
+        {
+            var album = context.Albums
+                .FirstOrDefault(a => a.Id == albumId);
+
+            if (album == null)
+            {
+                throw new ServerErrorException("Invalid album", "ERR_INV_ALBM");
+            }
+
+            return album;
+        }
+
+        protected static Album GetOwnAlbum(int albumId, int userId, ImageLibraryEntities context)
+        {
+            var album = GetAlbum(albumId, context);
+
+            if (album.UserId != userId)
+            {
+                throw new ServerErrorException("Unauthorized access", "ERR_INV_OWNR");
+            }
+
+            return album;
+        }
     }
 }
