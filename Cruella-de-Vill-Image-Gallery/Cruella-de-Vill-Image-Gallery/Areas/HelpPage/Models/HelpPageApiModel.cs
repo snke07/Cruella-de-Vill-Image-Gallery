@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage.Models
+namespace CruellaDeVillImageGallery.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

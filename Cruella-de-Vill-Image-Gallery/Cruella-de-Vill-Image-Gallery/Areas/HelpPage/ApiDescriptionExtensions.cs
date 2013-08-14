@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

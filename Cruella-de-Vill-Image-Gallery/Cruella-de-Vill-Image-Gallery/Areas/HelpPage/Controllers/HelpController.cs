@@ -1,9 +1,9 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Cruella_de_Vill_Image_Gallery.Areas.HelpPage.Models;
+using CruellaDeVillImageGallery.Areas.HelpPage.Models;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage.Controllers
+namespace CruellaDeVillImageGallery.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

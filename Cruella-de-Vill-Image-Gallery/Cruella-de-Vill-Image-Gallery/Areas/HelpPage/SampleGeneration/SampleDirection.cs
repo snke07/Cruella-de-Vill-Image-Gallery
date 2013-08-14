@@ -1,4 +1,4 @@
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

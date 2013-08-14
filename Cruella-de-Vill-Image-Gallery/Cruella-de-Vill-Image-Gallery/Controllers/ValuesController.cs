@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Cruella_de_Vill_Image_Gallery.Controllers
+namespace CruellaDeVillImageGallery.Controllers
 {
     public class ValuesController : ApiController
     {

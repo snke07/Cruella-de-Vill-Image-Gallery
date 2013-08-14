@@ -1,6 +1,6 @@
 using System;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     /// <summary>
     /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.

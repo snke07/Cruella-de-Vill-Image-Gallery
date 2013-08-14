@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Cruella_de_Vill_Image_Gallery.Controllers
+namespace CruellaDeVillImageGallery.Controllers
 {
     public class HomeController : Controller
     {

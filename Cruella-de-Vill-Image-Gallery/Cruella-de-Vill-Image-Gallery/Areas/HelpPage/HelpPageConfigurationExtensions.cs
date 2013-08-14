@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Cruella_de_Vill_Image_Gallery.Areas.HelpPage.Models;
+using CruellaDeVillImageGallery.Areas.HelpPage.Models;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.

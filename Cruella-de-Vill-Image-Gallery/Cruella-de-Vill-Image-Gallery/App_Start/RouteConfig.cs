@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Cruella_de_Vill_Image_Gallery
+namespace CruellaDeVillImageGallery
 {
     public class RouteConfig
     {

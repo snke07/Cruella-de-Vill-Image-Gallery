@@ -1,6 +1,6 @@
 using System;
 
-namespace Cruella_de_Vill_Image_Gallery.Areas.HelpPage
+namespace CruellaDeVillImageGallery.Areas.HelpPage
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.

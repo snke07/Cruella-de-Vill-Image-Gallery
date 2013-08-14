@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Cruella_de_Vill_Image_Gallery
+namespace CruellaDeVillImageGallery
 {
     public class BundleConfig
     {
