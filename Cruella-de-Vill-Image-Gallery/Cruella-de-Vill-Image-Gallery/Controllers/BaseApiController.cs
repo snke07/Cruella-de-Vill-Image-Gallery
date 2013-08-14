@@ -1,14 +1,12 @@
-﻿using CruellaDeVillImageGallery.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
-
-namespace CruellaDeVillImageGallery.Controllers
+﻿namespace CruellaDeVillImageGallery.Controllers
 {
+    using CruellaDeVillImageGallery.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
     public class BaseApiController : ApiController
     {
         private static Dictionary<string, HttpStatusCode> ErrorToStatusCodes = new Dictionary<string, HttpStatusCode>();
