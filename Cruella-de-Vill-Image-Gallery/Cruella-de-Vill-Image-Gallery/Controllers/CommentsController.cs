@@ -1,9 +1,9 @@
 ﻿namespace CruellaDeVillImageGallery.Controllers
 {
-    using CruellaDeVillImageGallery.Models;
-    using CruellaDeVillImageGallery.Repositories;
     using System.Net.Http;
     using System.Web.Http;
+    using CruellaDeVillImageGallery.Models;
+    using CruellaDeVillImageGallery.Repositories;
 
     public class CommentsController : BaseApiController
     {
