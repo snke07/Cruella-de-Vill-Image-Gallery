@@ -13,28 +13,29 @@
         {
             var response = this.PerformOperation(() =>
             {
-                var comment = CommentsRepository.PostComment(commentModel.AuthorId, commentModel.Body, commentModel.PictureId);
+                var userId = UsersRepository.LoginUser(sessionKey);
+                var comment = CommentsRepository.PostComment(userId, commentModel);
                 return comment;
             });
             return response;
         }
 
-        [HttpGet]
-        [ActionName("unread")]
-        public HttpResponseMessage GetUnreadComments(string sessionKey)
+        [HttpDelete]
+        [ActionName("delete")]
+        public HttpResponseMessage DeleteComment(string sessionKey, int commentId)
         {
             var response = this.PerformOperation(() =>
             {
-                var userId = UsersRepository.LoginUser(sessionKey);
-                var comments = CommentsRepository.GetUnreadComments(userId);
-                return comments;
+                //var userId = UsersRepository.LoginUser(sessionKey);
+                CommentsRepository.DeleteComment(commentId);
             });
+
             return response;
         }
 
         [HttpGet]
         [ActionName("all")]
-        public HttpResponseMessage GetAllMessages(string sessionKey)
+        public HttpResponseMessage GetAllComments(string sessionKey, int pictureId)
         {
             var response = this.PerformOperation(() =>
             {

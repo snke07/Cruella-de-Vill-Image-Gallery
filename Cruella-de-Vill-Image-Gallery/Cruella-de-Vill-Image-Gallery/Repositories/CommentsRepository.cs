@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CruellaDeVillImageGallery.Data;
+using CruellaDeVillImageGallery.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,19 +9,59 @@ namespace CruellaDeVillImageGallery.Repositories
 {
     public class CommentsRepository : BaseRepository
     {
-        internal static object PostComment(int p1, string p2, int p3)
+        public static CommentModelFull PostComment(int userId, CommentModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new ImageLibraryEntities())
+            {
+                var comment = new Comment()
+                {
+                    AuthorId = userId,
+                    Body = model.Body,
+                    PictureId = model.PictureId
+                };
+                context.Comments.Add(comment);
+                context.SaveChanges();
+
+                return new CommentModelFull()
+                {
+                    Id = comment.Id,
+                    AuthorId = userId,
+                    Body = comment.Body,
+                    PictureId = comment.PictureId
+                };
+            }
         }
 
-        internal static object GetUnreadComments(int userId)
+        public static void DeleteComment(int commentId)
         {
-            throw new NotImplementedException();
+            using (var context = new ImageLibraryEntities())
+            {
+                var comment = context.Comments.FirstOrDefault(c => c.Id == commentId);
+
+                context.Comments.Remove(comment);
+                context.SaveChanges();
+            }
         }
 
-        internal static object GetAllComments(int userId)
+        public static IEnumerable<Comment> GetAllComments(int pictureId)
         {
-            throw new NotImplementedException();
+            using (var context = new ImageLibraryEntities())
+            {
+                var comments = context.Comments.Where(c => c.Id == pictureId).ToList();
+                //var comments = new List<Comment>();
+
+                //context.Comments
+                //    .Where(c => c.Id == pictureId)
+                //    .ToList()
+                //    .ForEach(c => comments.Add(new Comment()
+                //    {
+                //        Id = c.Id,
+                //        AuthorId = c.AuthorId,
+                //        Body = c.Body,
+                //        PictureId = c.PictureId
+                //    }));
+                return comments;
+            }
         }
     }
 }
