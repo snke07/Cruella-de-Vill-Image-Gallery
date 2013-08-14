@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cruella-de-Vill-Image-Gallery", "Cruella-de-Vill-Image-Gallery\Cruella-de-Vill-Image-Gallery.csproj", "{F4D69A10-7894-4602-8901-2C35ABF4FDB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image-Gallery.WebClient", "Image-Gallery.WebClient\Image-Gallery.WebClient.csproj", "{255608EC-98F8-4BE9-9605-47E093A40BC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
