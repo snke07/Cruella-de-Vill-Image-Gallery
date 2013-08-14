@@ -162,10 +162,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Album.cs">
+      <DependentUpon>ImageLibraryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Comment.cs">
+      <DependentUpon>ImageLibraryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\ImageLibraryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -181,16 +189,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImageLibraryModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\Picture.cs">
+      <DependentUpon>ImageLibraryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\User.cs">
       <DependentUpon>ImageLibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\PictureModel.cs" />
     <Compile Include="Models\ServerErrorException.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlbumsRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\CommentsRepository.cs" />
+    <Compile Include="Repositories\PicturesRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -294,7 +311,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

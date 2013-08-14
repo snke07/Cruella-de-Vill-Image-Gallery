@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-
-using CruellaDeVillImageGallery.Models;
-using CruellaDeVillImageGallery.Repositories;
-
-namespace CruellaDeVillImageGallery.Controllers
+﻿namespace CruellaDeVillImageGallery.Controllers
 {
+    using System.Net.Http;
+    using System.Web.Http;
+    using CruellaDeVillImageGallery.Models;
+    using CruellaDeVillImageGallery.Repositories;
+
     public class UsersController : BaseApiController
     {
         [HttpPost]
