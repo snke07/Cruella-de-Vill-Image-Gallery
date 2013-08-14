@@ -8,7 +8,6 @@
     public class BaseRepository
     {
         protected const int Sha1CodeLength = 40;
-
         protected static Random rand = new Random();
 
         protected static User GetUser(int userId, ImageLibraryEntities context)

@@ -1,22 +1,21 @@
-﻿using CruellaDeVillImageGallery.Models;
-using CruellaDeVillImageGallery.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-
-namespace CruellaDeVillImageGallery.Repositories
+﻿namespace CruellaDeVillImageGallery.Repositories
 {
+    using CruellaDeVillImageGallery.Models;
+    using CruellaDeVillImageGallery.Data;
+    using System.Linq;
+    using System.Text;
+
     public class UsersRepository : BaseRepository
     {
         private const string SessionKeyChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         private const int SessionKeyLen = 50;
 
-        private const string ValidUsernameChars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_1234567890";
-        private const string ValidNicknameChars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_1234567890 -";
-        private const int MinUsernameNicknameChars = 4;
-        private const int MaxUsernameNicknameChars = 30;
+        private const string ValidEmailChars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_1234567890@.";
+        private const string ValidNicknameChars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_1234567890-";
+        private const int MinEmailChars = 8;
+        private const int MaxEmailChars = 30;
+        private const int MinNicknameChars = 4;
+        private const int MaxNicknameChars = 16;
 
         private static void ValidateSessionKey(string sessionKey)
         {
@@ -44,21 +43,21 @@ namespace CruellaDeVillImageGallery.Repositories
             return sessionKey;
         }
 
-        private static void ValidateEmail(string username)
+        private static void ValidateEmail(string email)
         {
-            if (username == null || username.Length < MinUsernameNicknameChars || username.Length > MaxUsernameNicknameChars)
+            if (email == null || email.Length < MinEmailChars || email.Length > MaxEmailChars)
             {
-                throw new ServerErrorException("Username should be between 4 and 30 symbols long", "INV_USRNAME_LEN");
+                throw new ServerErrorException("Email should be between 8 and 30 symbols long", "INV_EMAIL_LEN");
             }
-            else if (username.Any(ch => !ValidUsernameChars.Contains(ch)))
+            else if (email.Any(ch => !ValidEmailChars.Contains(ch)))
             {
-                throw new ServerErrorException("Username contains invalid characters", "INV_USRNAME_CHARS");
+                throw new ServerErrorException("Email contains invalid characters", "INV_EMAIL_CHARS");
             }
         }
 
         private static void ValidateNickname(string nickname)
         {
-            if (nickname == null || nickname.Length < MinUsernameNicknameChars || nickname.Length > MaxUsernameNicknameChars)
+            if (nickname == null || nickname.Length < MinNicknameChars || nickname.Length > MaxNicknameChars)
             {
                 throw new ServerErrorException("Nickname should be between 4 and 30 symbols long", "INV_NICK_LEN");
             }
@@ -72,11 +71,9 @@ namespace CruellaDeVillImageGallery.Repositories
         {
             if (authCode.Length != Sha1CodeLength)
             {
-                throw new ServerErrorException("Invalid authentication code length", "INV_USR_AUTH_LEN");
+                throw new ServerErrorException("Invalid authentication code length", "INV_EMAIL_AUTH_LEN");
             }
         }
-
-        /* public members */
 
         public static void CreateUser(string email, string nickname, string authCode)
         {
@@ -96,7 +93,7 @@ namespace CruellaDeVillImageGallery.Repositories
                 {
                     if (dbUser.Email.ToLower() == emailToLower)
                     {
-                        throw new ServerErrorException("Email already exists", "ERR_DUP_USR");
+                        throw new ServerErrorException("Email already exists", "ERR_DUP_EMAIL");
                     }
                     else
                     {
@@ -120,10 +117,11 @@ namespace CruellaDeVillImageGallery.Repositories
         {
             ValidateEmail(email);
             ValidateAuthCode(authCode);
-            var context = new ImageLibraryEntities();
-            using (context)
+
+            using (var context = new ImageLibraryEntities())
             {
                 var emailToLower = email.ToLower();
+
                 var user = context.Users
                     .FirstOrDefault(u => u.Email.ToLower() == emailToLower && u.AuthCode == authCode);
 
@@ -145,9 +143,7 @@ namespace CruellaDeVillImageGallery.Repositories
         {
             ValidateSessionKey(sessionKey);
 
-            var context = new ImageLibraryEntities();
-
-            using (context)
+            using (var context = new ImageLibraryEntities())
             {
                 var user = context.Users
                     .FirstOrDefault(u => u.SessionKey == sessionKey);
@@ -165,11 +161,10 @@ namespace CruellaDeVillImageGallery.Repositories
         {
             ValidateSessionKey(sessionKey);
 
-            var context = new ImageLibraryEntities();
-
-            using (context)
+            using (var context = new ImageLibraryEntities())
             {
-                var user = context.Users.FirstOrDefault(u => u.SessionKey == sessionKey);
+                var user = context.Users
+                    .FirstOrDefault(u => u.SessionKey == sessionKey);
 
                 if (user == null)
                 {

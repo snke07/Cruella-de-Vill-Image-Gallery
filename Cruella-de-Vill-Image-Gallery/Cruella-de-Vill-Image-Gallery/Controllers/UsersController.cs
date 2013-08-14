@@ -12,13 +12,6 @@ namespace CruellaDeVillImageGallery.Controllers
 {
     public class UsersController : BaseApiController
     {
-        [HttpGet]
-        [ActionName("test")]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpPost]
         [ActionName("register")]
         public HttpResponseMessage RegisterUser(UserRegisterModel user)
