@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CruellaDeVillImageGallery.Models
+﻿namespace CruellaDeVillImageGallery.Models
 {
-    public class PictureModel
+    using System.Runtime.Serialization;
+
+    [DataContract]
+    public class PictureOverviewModel
     {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
+
+        [DataMember(Name = "thumbUrl")]
+        public string ThumbUrl { get; set; }
     }
 }

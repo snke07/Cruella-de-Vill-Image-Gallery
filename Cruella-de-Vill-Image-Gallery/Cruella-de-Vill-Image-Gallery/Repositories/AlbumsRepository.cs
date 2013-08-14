@@ -1,5 +1,6 @@
 ﻿namespace CruellaDeVillImageGallery.Repositories
 {
+    using System.Collections.Generic;
     using System.Linq;
     using CruellaDeVillImageGallery.Data;
     using CruellaDeVillImageGallery.Models;
@@ -36,7 +37,7 @@
             }
         }
 
-        public static AlbumGetModel CreateAlbum(int userId, AlbumModel albumModel)
+        public static AlbumOverviewModel CreateAlbum(int userId, AlbumAddModel albumModel)
         {
             ValidateAlbumTitle(albumModel.Title);
 
@@ -54,7 +55,7 @@
                 context.Albums.Add(album);
                 context.SaveChanges();
 
-                return new AlbumGetModel()
+                return new AlbumOverviewModel()
                 {
                     Id = album.Id,
                     OwnerId = album.UserId,
@@ -75,19 +76,87 @@
             }
         }
 
-        public static AlbumGetModel GetAlbum(int albumId)
+        public static AlbumFullModel GetAlbum(int albumId)
         {
             using (var context = new ImageLibraryEntities())
             {
                 var album = GetAlbum(albumId, context);
+                var subalbums = new List<AlbumOverviewModel>();
+                var pictures = new List<PictureOverviewModel>();
 
-                return new AlbumGetModel()
+                context.Albums
+                    .Where(a => a.ParentId == album.Id)
+                    .ToList()
+                    .ForEach(a => subalbums.Add(new AlbumOverviewModel()
+                        {
+                            Id = a.Id,
+                            OwnerId = a.UserId,
+                            ParentId = a.ParentId,
+                            Title = a.Title
+                        }));
+
+                context.Pictures
+                    .Where(p => p.AlbumId == albumId)
+                    .ToList()
+                    .ForEach(p => pictures.Add(new PictureOverviewModel()
+                        {
+                            Id = p.Id,
+                            Title = p.Title,
+                            ThumbUrl = p.ThumbUrl
+                        }));
+
+                return new AlbumFullModel()
                 {
                     Id = album.Id,
                     OwnerId = album.UserId,
                     ParentId = album.ParentId,
-                    Title = album.Title
+                    Title = album.Title,
+                    SubAlbums = subalbums,
+                    Pictures = pictures
                 };
+            }
+        }
+
+        public static IEnumerable<AlbumOverviewModel> GetAllAlbums()
+        {
+            using (var context = new ImageLibraryEntities())
+            {
+                var albumModels = new List<AlbumOverviewModel>();
+
+                context.Albums
+                    .Where(a => a.ParentId == null)
+                    .ToList()
+                    .ForEach(a => albumModels.Add(new AlbumOverviewModel()
+                    {
+                        Id = a.Id,
+                        OwnerId = a.UserId,
+                        ParentId = a.ParentId,
+                        Title = a.Title
+                    }));
+
+                return albumModels;
+            }
+        }
+
+        public static IEnumerable<AlbumOverviewModel> GetMyAlbums(int userId)
+        {
+            using (var context = new ImageLibraryEntities())
+            {
+                var albumModels = new List<AlbumOverviewModel>();
+
+                context.Albums
+                    .Where(a => a.UserId == userId)
+                    .Where(a => a.ParentId == null)
+                    .ToList()
+                    .ForEach(a => albumModels.Add(new AlbumOverviewModel()
+                        {
+                            Id = a.Id,
+                            OwnerId = a.UserId,
+                            ParentId = a.ParentId,
+                            Title = a.Title
+                        }));
+
+                return albumModels;
             }
         }
     }
