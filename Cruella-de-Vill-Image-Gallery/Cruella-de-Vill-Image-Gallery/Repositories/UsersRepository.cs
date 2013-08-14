@@ -4,6 +4,7 @@
     using CruellaDeVillImageGallery.Data;
     using System.Linq;
     using System.Text;
+    using System.Net.Mail;
 
     public class UsersRepository : BaseRepository
     {
@@ -45,13 +46,20 @@
 
         private static void ValidateEmail(string email)
         {
-            if (email == null || email.Length < MinEmailChars || email.Length > MaxEmailChars)
+            try
             {
-                throw new ServerErrorException("Email should be between 8 and 30 symbols long", "INV_EMAIL_LEN");
+                var m = new MailAddress(email);
             }
-            else if (email.Any(ch => !ValidEmailChars.Contains(ch)))
+            catch
             {
-                throw new ServerErrorException("Email contains invalid characters", "INV_EMAIL_CHARS");
+                if (email == null || email.Length < MinEmailChars || email.Length > MaxEmailChars)
+                {
+                    throw new ServerErrorException("Email should be between 8 and 30 symbols long", "INV_EMAIL_LEN");
+                }
+                else if (email.Any(ch => !ValidEmailChars.Contains(ch)))
+                {
+                    throw new ServerErrorException("Email contains invalid characters", "INV_EMAIL_CHARS");
+                }
             }
         }
 

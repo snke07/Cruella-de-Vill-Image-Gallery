@@ -12,21 +12,14 @@ namespace CruellaDeVillImageGallery.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Comment
     {
-        public User()
-        {
-            this.Albums = new HashSet<Album>();
-            this.Comments = new HashSet<Comment>();
-        }
-    
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Nickname { get; set; }
-        public string AuthCode { get; set; }
-        public string SessionKey { get; set; }
+        public int PictureId { get; set; }
+        public string Body { get; set; }
+        public int AuthorId { get; set; }
     
-        public virtual ICollection<Album> Albums { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual Picture Picture { get; set; }
+        public virtual User User { get; set; }
     }
 }

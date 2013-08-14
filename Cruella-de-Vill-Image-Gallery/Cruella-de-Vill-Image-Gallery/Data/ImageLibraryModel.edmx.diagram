@@ -4,8 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b2dfe1ea9d4d43659649904289eab681" Name="Diagram1">
-        <EntityTypeShape EntityType="ImageLibraryModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="dbd581f2597e4cbcb890cfa52f1fea2c" Name="Diagram1">
+        <EntityTypeShape EntityType="ImageLibraryModel.Album" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImageLibraryModel.Comment" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImageLibraryModel.Picture" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImageLibraryModel.User" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ImageLibraryModel.FK_Albums_Albums" ManuallyRouted="false" />
+        <AssociationConnector Association="ImageLibraryModel.FK_Albums_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ImageLibraryModel.FK_Pictures_Albums" ManuallyRouted="false" />
+        <AssociationConnector Association="ImageLibraryModel.FK_Comments_Pictures" ManuallyRouted="false" />
+        <AssociationConnector Association="ImageLibraryModel.FK_Comments_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
