@@ -30,7 +30,6 @@
             }
 
             var parentAlbum = GetAlbum((int)album.ParentId, context);
-
             if (parentAlbum.UserId != userId)
             {
                 throw new ServerErrorException("Unauthorized access", "ERR_INV_OWNR");
