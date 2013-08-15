@@ -9,6 +9,7 @@
     using System;
     using System.IO;
     using System.Web;
+    using System.Threading.Tasks;
 
     public class PicturesController : BaseApiController
     {
@@ -29,20 +30,21 @@
 
         [HttpPost]
         [ActionName("add")]
-        public HttpResponseMessage AddAlbum(string sessionKey, int albumId, string title)
+        public async Task<HttpResponseMessage> AddAlbum(string sessionKey, int albumId, string title)
         {
             string addressString = @"current.jpg";
+
             //addressString = LOCAL_TEST_ADDRESS;
 
             if (!this.Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            MultipartMemoryStreamProvider provider = Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider()).Result;
+            MultipartMemoryStreamProvider provider = await Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider());
 
             foreach (var content in provider.Contents)
             {
-                Stream st = content.ReadAsStreamAsync().Result;
+                Stream st = await content.ReadAsStreamAsync();
 
                 using (FileStream writer = File.Create(addressString))
                 {

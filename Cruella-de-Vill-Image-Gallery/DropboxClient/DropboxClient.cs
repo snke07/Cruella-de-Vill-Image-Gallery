@@ -14,7 +14,7 @@
         private const string DropboxAppKey = "ouwcjfmnx8wj0il";
         private const string DropboxAppSecret = "m0g9rcuixdfegve";
 
-        private const string OAuthTokenFileName = @"OAuthToken.txt";
+        private const string OAuthTokenFileName = @"D:\OAuthToken.txt";
         private IDropbox client;
 
         public DropboxClient()
@@ -23,11 +23,11 @@
                 new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
 
             // Authenticate the application (if not authenticated) and load the OAuth token
-            if (!File.Exists(OAuthTokenFileName))
-            {
-                AuthorizeAppOAuth(dropboxServiceProvider);
-            }
-            OAuthToken oauthAccessToken = LoadOAuthToken();
+            //if (!File.Exists(OAuthTokenFileName))
+            //{
+            //    AuthorizeAppOAuth(dropboxServiceProvider);
+            //}
+            OAuthToken oauthAccessToken = new OAuthToken("v10ht168wdf4s5hb", "foe052r43yi58g2");
 
             // Login in Dropbox
             this.client = dropboxServiceProvider.GetApi(oauthAccessToken.Value, oauthAccessToken.Secret);
