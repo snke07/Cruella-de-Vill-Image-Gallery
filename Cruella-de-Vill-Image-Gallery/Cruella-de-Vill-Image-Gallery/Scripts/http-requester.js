@@ -1,7 +1,7 @@
 ﻿/// <reference path="jquery-2.0.2.js" />
 var httpRequester = (function () {
     function getJSON(url, success, error) {
-        $.ajax({
+        return $.ajax({
             url: url,
             type: "GET",
             timeout: 5000,
@@ -11,7 +11,7 @@ var httpRequester = (function () {
         });
     }
     function postJSON(url, data, success, error) {
-        $.ajax({
+        return $.ajax({
             url: url,
             type: "POST",
             contentType: "application/json",

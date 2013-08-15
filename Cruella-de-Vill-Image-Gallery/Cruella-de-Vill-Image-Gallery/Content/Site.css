@@ -36,3 +36,8 @@
 #projectInfo img:hover {
     box-shadow: 0 1px 15px -4px;
 }
+
+.albumItem, #btn-album-back {
+    display: inline-block;
+    margin-right: 5px;
+}
