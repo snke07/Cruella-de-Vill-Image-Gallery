@@ -56,17 +56,10 @@ namespace CruellaDeVillImageGallery.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetByAlbumId(string sessionKey)
+        [ActionName("getByAlbum")]
+        public IEnumerable<PictureModel> GetByAlbumId(int albumId)
         {
-            var response = this.PerformOperation(() =>
-            {
-                var userId = UsersRepository.LoginUser(sessionKey);
-                var albums = AlbumsRepository.GetAllAlbums();
-
-                return albums;
-            });
-
-            return response;
+            return repo.GetImagesByAlbumId(albumId);
         }
 
         [HttpDelete]
