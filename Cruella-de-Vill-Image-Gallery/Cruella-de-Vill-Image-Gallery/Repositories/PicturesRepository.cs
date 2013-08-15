@@ -33,7 +33,7 @@ namespace CruellaDeVillImageGallery.Repositories
             return pic.Id;
         }
 
-        public IEnumerable<PictureModel> GetImage(int albumId)
+        public IEnumerable<PictureModel> GetImagesByAlbumId(int albumId)
         {
             var selected = (from picture in context.Pictures
                             where picture.AlbumId == albumId

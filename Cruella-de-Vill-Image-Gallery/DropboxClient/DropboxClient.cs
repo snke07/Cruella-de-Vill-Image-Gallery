@@ -14,7 +14,7 @@
         private const string DropboxAppKey = "ouwcjfmnx8wj0il";
         private const string DropboxAppSecret = "m0g9rcuixdfegve";
 
-        private const string OAuthTokenFileName = @"..\..\Users\delqn_000\Desktop\OAuthToken.txt";
+        private const string OAuthTokenFileName = @"OAuthToken.txt";
         private IDropbox client;
 
         public DropboxClient()
