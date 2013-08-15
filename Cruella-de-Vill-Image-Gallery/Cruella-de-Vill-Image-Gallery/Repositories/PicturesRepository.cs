@@ -16,7 +16,7 @@ namespace CruellaDeVillImageGallery.Repositories
         public PicturesRepository()
         {
             this.context = new ImageLibraryEntities();
-            this.client = new DropboxClient();
+            //this.client = new DropboxClient();
         }
 
         public int AddImage(int albumnId, string title, string fileName, string filePath)
@@ -32,21 +32,6 @@ namespace CruellaDeVillImageGallery.Repositories
             context.SaveChanges();
 
             return pic.Id;
-        }
-
-        public IEnumerable<PictureModel> GetImagesByAlbumId(int albumId)
-        {
-            var selected = (from picture in context.Pictures
-                            where picture.AlbumId == albumId
-                            select new PictureModel()
-                            {
-                                Id = picture.Id,
-                                Title = picture.Title,
-                                PictureUrl = picture.BaseUrl,
-                                ThumbUrl = picture.ThumbUrl
-                            }).ToList();
-
-            return selected;
         }
 
         public void RemoveImage(int id)
