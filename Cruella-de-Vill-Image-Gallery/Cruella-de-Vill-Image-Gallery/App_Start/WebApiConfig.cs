@@ -10,6 +10,12 @@ namespace CruellaDeVillImageGallery
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
+                name: "PicturesApi",
+                routeTemplate: "api/pictures/{action}/{sessionKey}",
+                defaults: new { controller = "pictures" }
+                );
+
+            config.Routes.MapHttpRoute(
                 name: "AlbumsApi",
                 routeTemplate: "api/albums/{albumId}/{action}/{sessionKey}",
                 defaults: new { controller = "albums" }
