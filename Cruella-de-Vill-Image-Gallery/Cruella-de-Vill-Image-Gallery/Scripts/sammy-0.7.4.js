@@ -1,3 +1,4 @@
+/// <reference path="jquery-ui-1.8.24.js" />
 // name: sammy
 // version: 0.7.4
 
