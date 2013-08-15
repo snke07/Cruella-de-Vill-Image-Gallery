@@ -59,6 +59,7 @@ namespace CruellaDeVillImageGallery.Controllers
         [ActionName("getByAlbum")]
         public IEnumerable<PictureModel> GetByAlbumId(int albumId)
         {
+            return null;
             return repo.GetImagesByAlbumId(albumId);
         }
 
