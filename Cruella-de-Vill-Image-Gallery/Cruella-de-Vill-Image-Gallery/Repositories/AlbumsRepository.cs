@@ -8,18 +8,18 @@
     public class AlbumsRepository : BaseRepository
     {
         private const string ValidAlbumChars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_1234567890- ";
-        private const int MinAlbumChars = 6;
+        private const int MinAlbumChars = 4;
         private const int MaxAlbumChars = 30;
 
         private static void ValidateAlbumTitle(string albumTitle)
         {
             if (albumTitle == null || albumTitle.Length < MinAlbumChars || albumTitle.Length > MaxAlbumChars)
             {
-                throw new ServerErrorException("Email should be between 6 and 30 symbols long", "INV_ALBM_LEN");
+                throw new ServerErrorException("Album name should be between 4 and 30 symbols long", "INV_ALBM_LEN");
             }
             else if (albumTitle.Any(ch => !ValidAlbumChars.Contains(ch)))
             {
-                throw new ServerErrorException("Email contains invalid characters", "INV_ALBM_CHARS");
+                throw new ServerErrorException("Album name contains invalid characters", "INV_ALBM_CHARS");
             }
         }
 

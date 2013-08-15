@@ -1,4 +1,5 @@
-﻿var ui = (function () {
+﻿/// <reference path="bootstrap.js" />
+var ui = (function () {
 
 	function buildLoginForm() {
 	    var html =
@@ -28,19 +29,123 @@
                         '</fieldset>' +
                     '</div>' +
 				'</form>' +
-                '<div class="row text-center">' +
+                '<div class="row text-center span6 offset3">' +
 				    '<div id="error-messages" class="alert alert-error" style="display: none"></div>' +
                 '</div>' +
             '</div>';
 		return html;
 	}
 
-	function buildGalleryUI(nickname) {
-	    var html = '<span id="user-nickname">' +
-				nickname +
-		'</span>' +
-		'<button id="btn-logout">Logout</button><br/>';
+	function buildGalleryUI(nickname, albumsData) {
+	    console.log(albumsData);
+        var i = 0,
+	        albumItems = '';
+
+        for (i = 0; i < albumsData.length; i++) {
+            var item =
+                '<div class="albumItem" data-albumid="' + albumsData[i].id + '">' +
+                    '<a href="#">' +
+                        '<img src="../../Content/Images/album96.png">' +
+                        '<div class="text-center">' + albumsData[i].title + '</div>' +
+                    '</a>' +
+                '</div>';
+            albumItems += item;
+	    }
+
+        var html =
+        '<div class="row">' +
+            '<div class="span12">' +
+                '<p class="pull-right"><button id="btn-logout" class="btn btn-small">Logout</button></p>' +
+                '<h4>Hello, ' + nickname + '!</h4>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="span12">' +
+                '<div class="page-header">' +
+                    '<p class="pull-right"><a href="#addGalleryForm" id="btn-add-gallery" class="btn btn-small btn-primary" data-toggle="modal">Add</a></p>' +
+                    '<h4>Galeries <small>(' + albumsData.length + ')</small></h4>' +
+                '</div>' +
+                '<div>' +
+                    albumItems +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
 		return html;
+	}
+
+	function buildAlbumUI(nickname, albumData) {
+	    var i = 0,
+	        albumItems = '',
+            pictureItems = '',
+            albums = albumData.subalbums,
+            pictures = albumData.pictures;
+
+	    for (i = 0; i < albums.length; i++) {
+	        var item =
+                '<div class="albumItem" data-albumid="' + albums[i].id + '" data-parentid="' + albums[i].parentId + '">' +
+                    '<a href="#">' +
+                        '<img src="../../Content/Images/album96.png">' +
+                        '<div class="text-center">' + albums[i].title + '</div>' +
+                    '</a>' +
+                '</div>';
+	        albumItems += item;
+	    }
+
+	    for (i = 0; i < pictures.length; i++) {
+	        var item =
+                '<div class="albumItem" data-pictureid="' + pictures[i].id + '">' +
+                    '<a href="#">' +
+                        '<img src="' + pictures[i].thumbUrl + '" width="120" height="90" class="img-rounded" >' +
+                        '<div class="text-center">' + pictures[i].title + '</div>' +
+                    '</a>' +
+                '</div>';
+	        pictureItems += item;
+	    }
+
+	    var html =
+        // Albums
+        '<div class="row">' +
+            '<div class="span12">' +
+                '<p class="pull-right"><button id="btn-logout" class="btn btn-small">Logout</button></p>' +
+                '<h4>Hello, ' + nickname + '!</h4>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="span12">' +
+                '<div class="page-header">' +
+                    '<p class="pull-right">' +
+                        '<a href="#addAlbumForm" id="btn-add-album" class="btn btn-small btn-primary" data-toggle="modal" data-albumid="' + albumData.id + '">Add</a>' +
+                    '</p>' +
+                    '<h4>Albums <small>(' + albums.length + ')</small></h4>' +
+                '</div>' +
+                '<div>' +
+                '<div id="btn-album-back" data-parentid="' + albumData.parentId + '">' +
+                    '<a href="#">' +
+                        '<img src="../../Content/Images/back96.png">' +
+                        '<div class="text-center">Back</div>' +
+                    '</a>' +
+                '</div>' +
+                    albumItems +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        // Pictures
+        '<div class="row">' +
+            '<div class="span12">' +
+                '<div class="page-header">' +
+                    '<p class="pull-right">' +
+                        '<a href="#addGalleryForm" id="btn-add-album" class="btn btn-small btn-primary" data-toggle="modal">Add</a>' +
+                    '</p>' +
+                    '<h4>Pictures <small>(' + pictures.length + ')</small></h4>' +
+                '</div>' +
+                '<div>' +
+                    pictureItems +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+	    return html;
 	}
 
 	function buildOpenGamesList(games) {
@@ -157,7 +262,8 @@
 	}
 
 	return {
-		galleryUI: buildGalleryUI,
+	    galleryUI: buildGalleryUI,
+        albumUI: buildAlbumUI,
 		openGamesList: buildOpenGamesList,
 		loginForm: buildLoginForm,
 		activeGamesList: buildActiveGamesList,

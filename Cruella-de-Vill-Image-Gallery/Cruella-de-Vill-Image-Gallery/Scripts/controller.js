@@ -28,27 +28,33 @@ var controllers = (function () {
 			$(selector).html(loginFormHtml);
 		},
 		loadGalleryUI: function (selector) {
-			var self = this;
-			var galleryUIHtml =
-				ui.galleryUI(this.persister.nickname());
+		    var self = this,
+                nickname = this.persister.nickname();
 
-			$(selector).html(galleryUIHtml);
+		    $.when (
+                self.persister.album.all()
+            ).done(function (albumsData, picturesData) {
+                var galleryUIHtml =
+                    ui.galleryUI(nickname, albumsData);
 
-			//this.updateUI(selector);
-
-			//updateTimer = setInterval(function () {
-			//	self.updateUI(selector);
-			//}, 15000);
+                $(selector).html(galleryUIHtml);
+            });
 		},
-		loadAlbum: function (selector, gameId) {
-            //TODO
-			//this.persister.game.state(gameId, function (gameState) {
-			//	var gameHtml = ui.gameState(gameState);
-			//	$(selector + " #game-holder").html(gameHtml)
-			//});
+		loadAlbum: function (selector, albumId) {
+		    var self = this,
+                    nickname = this.persister.nickname();
+		    $.when(
+                self.persister.album.load(albumId)
+            ).done(function (albumData) {
+                var albumUIHtml =
+                    ui.albumUI(nickname, albumData);
+
+                $(selector).html(albumUIHtml);
+            });
 		},
 		attachUIEventHandlers: function (selector) {
-			var wrapper = $(selector);
+		    var wrapper = $(selector);
+		    var modal = $('#modalContainer');
 			var self = this;
 
 			wrapper.on("click", "#btn-show-login", function () {
@@ -58,6 +64,7 @@ var controllers = (function () {
 				wrapper.find("#register-form").hide();
 				wrapper.find("#error-messages").hide();
 			});
+
 			wrapper.on("click", "#btn-show-register", function () {
 				wrapper.find(".button.selected").removeClass("selected");
 				$(this).addClass("selected");
@@ -80,6 +87,7 @@ var controllers = (function () {
 				});
 				return false;
 			});
+
 			wrapper.on("click", "#btn-register", function () {
 				var user = {
 					email: $(selector).find("#tb-register-username").val(),
@@ -93,6 +101,7 @@ var controllers = (function () {
 				});
 				return false;
 			});
+
 			wrapper.on("click", "#btn-logout", function () {
 				self.persister.user.logout(function () {
 					self.loadLoginFormUI(selector);
@@ -101,71 +110,92 @@ var controllers = (function () {
 				});
 			});
 
-			wrapper.on("click", "#open-games-container a", function () {
-				$("#game-join-inputs").remove();
-				var html =
-					'<div id="game-join-inputs">' +
-						'Number: <input type="text" id="tb-game-number"/><br/>' +
-						'Password: <input type="text" id="tb-game-pass"/><br/>' +
-						'<button id="btn-join-game">join</button>' +
-					'</div>';
-				$(this).after(html);
-			});
-			wrapper.on("click", "#btn-join-game", function () {
-				var game = {
-					number: $("#tb-game-number").val(),
-					gameId: $(this).parents("li").first().data("game-id")
-				};
+			modal.on("click", "#addGalerySubmit", function () {
+			    var name = $('#galleryName');
+			    var alert = $('#addGalleryAlert').hide();
+			    var msg = $('#addGalleryErrorMessage');
+			    var btn = $('#addGalerySubmit');
 
-				var password = $("#tb-game-pass").val();
+			    var newGalleryData = {
+			        title: name.val(),
+			        parentId: null
+			    };
 
-				if (password) {
-					game.password = password;
-				}
-				self.persister.game.join(game);
-			});
-			wrapper.on("click", "#btn-create-game", function () {
-				var game = {
-					title: $("#tb-create-title").val(),
-					number: $("#tb-create-number").val(),
-				}
-				var password = $("#tb-create-pass").val();
-				if (password) {
-					game.password = password;
-				}
-				self.persister.game.create(game);
+			    self.persister.album.add(newGalleryData)
+                .done(function (data) {
+                    alert.removeClass('alert-error');
+                    alert.addClass('alert-success');
+                    msg.text('Gallery added!');
+                    alert.fadeIn(300);
+                    btn.hide();
+                }).error(function (err) {
+                    msg.text(JSON.parse(err.responseText).Message);
+                    alert.addClass('alert-error');
+                    alert.fadeIn(300);
+                    name.focus();
+                });
 			});
 
-			wrapper.on("click", "#active-games-container li.game-status-full a.btn-active-game", function () {
-				var gameCreator = $(this).parent().data("creator");
-				var myNickname = self.persister.nickname();
-				if (gameCreator == myNickname) {
-					$("#btn-game-start").remove();
-					var html =
-						'<a href="#" id="btn-game-start">' +
-							'Start' +
-						'</a>';
-					$(this).parent().append(html);
-				}
+			modal.on("click", "#addAlbumSubmit", function () {
+			    var add = $('#btn-add-album');
+			    var name = $('#albumName');
+			    var alert = $('#addAlbumAlert').hide();
+			    var msg = $('#addAlbumErrorMessage');
+			    var btn = $('#addAlbumSubmit');
+			    var parentId = add.data('albumid');
+
+
+			    var newAlbumData = {
+			        title: name.val(),
+			        parentId: parentId
+			    };
+
+			    self.persister.album.add(newAlbumData)
+                .done(function (data) {
+                    alert.removeClass('alert-error');
+                    alert.addClass('alert-success');
+                    msg.text('Allbum added!');
+                    alert.fadeIn(300);
+                    btn.hide();
+                }).error(function (err) {
+                    msg.text(JSON.parse(err.responseText).Message);
+                    alert.addClass('alert-error');
+                    alert.fadeIn(300);
+                    name.focus();
+                });
 			});
 
-			wrapper.on("click", "#btn-game-start", function () {
-				var parent = $(this).parent();
-
-				var gameId = parent.data("game-id");
-				self.persister.game.start(gameId, function () {
-					wrapper.find("#game-holder").html("started");
-				},
-				function (err) {
-					alert(JSON.stringify(err));
-				});
-
-				return false;
+			wrapper.on("click", ".albumItem", function (ev) {
+			    var albumid = $(this).data('albumid');
+			    self.loadAlbum(selector, albumid);
+			    return false;
 			});
-			
-			wrapper.on("click", ".active-games .in-progress", function () {
-				self.loadGame(selector, $(this).parent().data("game-id"));
+
+			wrapper.on("click", "#btn-album-back", function (ev) {
+			    var parent = $(this).data('parentid');
+
+			    if (parent) {
+			        self.loadAlbum(selector, parent);
+			    } else {
+			        self.loadGalleryUI(selector);
+			    }
+
+			    return false;
 			});
+
+			$('#addAlbumForm').on('hidden', function () {
+			    var add = $('#btn-add-album');
+
+			    if (add) {
+			        var id = add.data('albumid');
+			        self.loadAlbum(selector, id);
+			    }
+			})
+
+			$('#addGalleryForm').on('hidden', function () {
+			    self.loadGalleryUI(selector);
+			})
+
 		},
 		updateUI: function (selector) {
 			this.persister.game.open(function (games) {

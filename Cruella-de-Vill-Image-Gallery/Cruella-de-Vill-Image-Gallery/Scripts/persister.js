@@ -77,11 +77,20 @@ var persisters = (function () {
     });
 
     var AlbumPersister = Class.create({
-        init: function () {
-
+        init: function (rootUrl) {
+            this.rootUrl = rootUrl + "albums/";
         },
-        make: function () {
-
+        all: function (success, error) {
+            var url = this.rootUrl + "all/" + sessionKey;
+            return httpRequester.getJSON(url);
+        },
+        add: function (albmData, success, error) {
+            var url = this.rootUrl + "create/" + sessionKey;
+            return httpRequester.postJSON(url, albmData);
+        },
+        load: function (albumId, success, error) {
+            var url = this.rootUrl + albumId + "/load/" + sessionKey;
+            return httpRequester.getJSON(url);
         }
     });
 

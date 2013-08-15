@@ -1,2 +1,48 @@
 ﻿<div id="content" class="container">
 </div>
+
+<div id="modalContainer">
+    <div id="addGalleryForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="AddGallery" aria-hidden="true">
+        <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="addGalleryFormLabel">Add Gallery</h3>
+        </div>
+        <div class="modal-body">
+            <div class="span6">
+                <form method="post" action="#">
+                    <input id="galleryName" class="span6" type="text" name="name" placeholder="Name"> 
+                    <div id="addGalleryAlert" class="alert hide">
+                        <strong id="addGalleryErrorMessage"></strong>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="addGaleryClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addGalerySubmit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+
+    <div id="addAlbumForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="AddAlbum" aria-hidden="true">
+        <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="addAlbumFormLabel">Add Album</h3>
+        </div>
+        <div class="modal-body">
+            <div class="span6">
+                <form method="post" action="#">
+                    <input id="albumName" class="span6" type="text" name="name" placeholder="Name"> 
+                    <div id="addAlbumAlert" class="alert hide">
+                        <strong id="addAlbumErrorMessage"></strong>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="addAlbumClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addAlbumSubmit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+</div>
