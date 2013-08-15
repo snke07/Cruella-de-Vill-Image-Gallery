@@ -22,7 +22,7 @@
             DropboxServiceProvider dropboxServiceProvider =
                 new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
 
-            // Authenticate the application (if not authenticated) and load the OAuth token
+            // Authenticate the application (if not authenticated) and load the OAuth token.
             //if (!File.Exists(OAuthTokenFileName))
             //{
             //    AuthorizeAppOAuth(dropboxServiceProvider);
