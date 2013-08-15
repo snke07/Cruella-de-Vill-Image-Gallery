@@ -29,6 +29,6 @@
         public ICollection<AlbumOverviewModel> SubAlbums { get; set; }
 
         [DataMember(Name = "pictures")]
-        public ICollection<PictureOverviewModel> Pictures { get; set; }
+        public ICollection<PictureModel> Pictures { get; set; }
     }
 }

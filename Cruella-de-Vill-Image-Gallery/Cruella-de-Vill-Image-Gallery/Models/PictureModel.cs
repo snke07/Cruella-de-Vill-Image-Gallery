@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class PictureOverviewModel
+    public class PictureModel
     {
         [DataMember(Name = "id")]
         public int Id { get; set; }
@@ -13,5 +13,8 @@
 
         [DataMember(Name = "thumbUrl")]
         public string ThumbUrl { get; set; }
+
+        [DataMember(Name = "baseUrl")]
+        public string PictureUrl { get; set; }
     }
 }
