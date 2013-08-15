@@ -11,7 +11,7 @@ namespace CruellaDeVillImageGallery
         {
             config.Routes.MapHttpRoute(
                 name: "PicturesApi",
-                routeTemplate: "api/pictures/{action}/{sessionKey}",
+                routeTemplate: "api/pictures/{action}",
                 defaults: new { controller = "pictures" }
                 );
 
