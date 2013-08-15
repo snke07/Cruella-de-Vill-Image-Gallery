@@ -47,7 +47,10 @@ namespace CruellaDeVillImageGallery.Repositories
         {
             using (var context = new ImageLibraryEntities())
             {
-                var comments = context.Comments.Where(c => c.PictureId == pictureId).ToList();
+                var comments = context.Comments.Where(c => c.Picture.Id == pictureId).ToList();
+
+                int a = 5;
+
                 return comments;
             }
         }
