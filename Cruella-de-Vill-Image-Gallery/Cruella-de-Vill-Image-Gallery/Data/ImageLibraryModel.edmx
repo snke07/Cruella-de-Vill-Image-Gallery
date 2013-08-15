@@ -4,47 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ImageLibraryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="ImageLibraryModelStoreContainer">
-          <EntitySet Name="Albums" EntityType="ImageLibraryModel.Store.Albums" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Comments" EntityType="ImageLibraryModel.Store.Comments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Pictures" EntityType="ImageLibraryModel.Store.Pictures" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="ImageLibraryModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Albums_Albums" Association="ImageLibraryModel.Store.FK_Albums_Albums">
-            <End Role="Albums" EntitySet="Albums" />
-            <End Role="Albums1" EntitySet="Albums" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Albums_Users" Association="ImageLibraryModel.Store.FK_Albums_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Albums" EntitySet="Albums" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_Pictures" Association="ImageLibraryModel.Store.FK_Comments_Pictures">
-            <End Role="Pictures" EntitySet="Pictures" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_Users" Association="ImageLibraryModel.Store.FK_Comments_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pictures_Albums" Association="ImageLibraryModel.Store.FK_Pictures_Albums">
-            <End Role="Albums" EntitySet="Albums" />
-            <End Role="Pictures" EntitySet="Pictures" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="ImageLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Albums">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParentId" Type="int" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PictureId" Type="int" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
@@ -53,25 +27,25 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AlbumId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="BaseUrl" Type="varchar" Nullable="false" MaxLength="500" />
-          <Property Name="ThumbUrl" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BaseUrl" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ThumbUrl" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Nickname" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="AuthCode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="AuthCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SessionKey" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Albums_Albums">
-          <End Role="Albums" Type="ImageLibraryModel.Store.Albums" Multiplicity="0..1" />
-          <End Role="Albums1" Type="ImageLibraryModel.Store.Albums" Multiplicity="*" />
+          <End Role="Albums" Type="Self.Albums" Multiplicity="0..1" />
+          <End Role="Albums1" Type="Self.Albums" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Albums">
               <PropertyRef Name="Id" />
@@ -82,8 +56,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Albums_Users">
-          <End Role="Users" Type="ImageLibraryModel.Store.Users" Multiplicity="1" />
-          <End Role="Albums" Type="ImageLibraryModel.Store.Albums" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Albums" Type="Self.Albums" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -94,8 +68,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comments_Pictures">
-          <End Role="Pictures" Type="ImageLibraryModel.Store.Pictures" Multiplicity="1" />
-          <End Role="Comments" Type="ImageLibraryModel.Store.Comments" Multiplicity="*" />
+          <End Role="Pictures" Type="Self.Pictures" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pictures">
               <PropertyRef Name="Id" />
@@ -106,8 +80,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comments_Users">
-          <End Role="Users" Type="ImageLibraryModel.Store.Users" Multiplicity="1" />
-          <End Role="Comments" Type="ImageLibraryModel.Store.Comments" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -118,8 +92,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pictures_Albums">
-          <End Role="Albums" Type="ImageLibraryModel.Store.Albums" Multiplicity="1" />
-          <End Role="Pictures" Type="ImageLibraryModel.Store.Pictures" Multiplicity="*" />
+          <End Role="Albums" Type="Self.Albums" Multiplicity="1" />
+          <End Role="Pictures" Type="Self.Pictures" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Albums">
               <PropertyRef Name="Id" />
@@ -129,8 +103,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityContainer Name="ImageLibraryModelStoreContainer">
+          <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Pictures" EntityType="Self.Pictures" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Albums_Albums" Association="Self.FK_Albums_Albums">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Albums1" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Albums_Users" Association="Self.FK_Albums_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Albums" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Pictures" Association="Self.FK_Comments_Pictures">
+            <End Role="Pictures" EntitySet="Pictures" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pictures_Albums" Association="Self.FK_Pictures_Albums">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Pictures" EntitySet="Pictures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ImageLibraryModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -330,7 +329,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
