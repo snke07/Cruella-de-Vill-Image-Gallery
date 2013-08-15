@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cruella-de-Vill-Image-Gallery", "Cruella-de-Vill-Image-Gallery\Cruella-de-Vill-Image-Gallery.csproj", "{F4D69A10-7894-4602-8901-2C35ABF4FDB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image-Gallery.WebClient", "Image-Gallery.WebClient\Image-Gallery.WebClient.csproj", "{255608EC-98F8-4BE9-9605-47E093A40BC6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropboxClient", "DropboxClient\DropboxClient.csproj", "{AFDFEDAE-7035-4A9A-B78D-952AC217BBD6}"
 EndProject
 Global
@@ -27,16 +25,6 @@ Global
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F4D69A10-7894-4602-8901-2C35ABF4FDB5}.Release|x86.ActiveCfg = Release|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{255608EC-98F8-4BE9-9605-47E093A40BC6}.Release|x86.ActiveCfg = Release|Any CPU
 		{AFDFEDAE-7035-4A9A-B78D-952AC217BBD6}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{AFDFEDAE-7035-4A9A-B78D-952AC217BBD6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{AFDFEDAE-7035-4A9A-B78D-952AC217BBD6}.Debug|Mixed Platforms.Build.0 = Debug|x86
