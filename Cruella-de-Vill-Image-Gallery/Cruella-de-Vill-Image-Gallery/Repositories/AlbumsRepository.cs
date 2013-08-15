@@ -82,7 +82,7 @@
             {
                 var album = GetAlbum(albumId, context);
                 var subalbums = new List<AlbumOverviewModel>();
-                var pictures = new List<PictureOverviewModel>();
+                var pictures = new List<PictureModel>();
 
                 context.Albums
                     .Where(a => a.ParentId == album.Id)
@@ -98,7 +98,7 @@
                 context.Pictures
                     .Where(p => p.AlbumId == albumId)
                     .ToList()
-                    .ForEach(p => pictures.Add(new PictureOverviewModel()
+                    .ForEach(p => pictures.Add(new PictureModel()
                         {
                             Id = p.Id,
                             Title = p.Title,
