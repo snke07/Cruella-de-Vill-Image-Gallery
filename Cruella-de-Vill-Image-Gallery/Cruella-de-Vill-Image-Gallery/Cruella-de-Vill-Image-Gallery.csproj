@@ -369,6 +369,10 @@
       <Project>{afdfedae-7035-4a9a-b78d-952ac217bbd6}</Project>
       <Name>DropboxClient</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NotificationHandler\NotificationHandler.csproj">
+      <Project>{aac56a61-3193-45f4-bc53-5d100c1126ea}</Project>
+      <Name>NotificationHandler</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

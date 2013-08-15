@@ -19,6 +19,7 @@ namespace CruellaDeVillImageGallery.Repositories
                     Body = model.Body,
                     PictureId = model.PictureId
                 };
+
                 context.Comments.Add(comment);
                 context.SaveChanges();
 
@@ -48,8 +49,6 @@ namespace CruellaDeVillImageGallery.Repositories
             using (var context = new ImageLibraryEntities())
             {
                 var comments = context.Comments.Where(c => c.Picture.Id == pictureId).ToList();
-
-                int a = 5;
 
                 return comments;
             }
