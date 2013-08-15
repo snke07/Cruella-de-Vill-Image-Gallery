@@ -6,6 +6,7 @@
     using CruellaDeVillImageGallery.Repositories;
     using System.Collections.Generic;
     using System.Net;
+    using System;
 
     public class PicturesController : BaseApiController
     {
@@ -58,15 +59,22 @@
         [ActionName("getByAlbum")]
         public HttpResponseMessage GetAll(string sessionKey, int albumId)
         {
-            var response = this.PerformOperation(() =>
+            try
             {
-                var userId = UsersRepository.LoginUser(sessionKey);
-                var pictures = repo.GetImagesByAlbumId(albumId);
+                var response = this.PerformOperation(() =>
+                {
+                    var userId = UsersRepository.LoginUser(sessionKey);
+                    var pictures = repo.GetImagesByAlbumId(albumId);
 
-                return pictures;
-            });
+                    return pictures;
+                });
 
-            return response;
+                return response;
+            }
+            catch (Exception e)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
+            }
         }
 
         [HttpGet]
