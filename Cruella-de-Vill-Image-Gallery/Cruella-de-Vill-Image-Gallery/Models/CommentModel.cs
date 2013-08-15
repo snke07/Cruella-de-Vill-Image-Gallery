@@ -10,9 +10,6 @@
 
         [DataMember(Name = "body")]
         public string Body { get; set; }
-
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
     }
 
     [DataContract]
@@ -20,5 +17,8 @@
     {
         [DataMember(Name = "authorId")]
         public int AuthorId { get; set; }
+
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
     }
 }
