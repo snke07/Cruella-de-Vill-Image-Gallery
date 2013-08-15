@@ -73,7 +73,14 @@
             }
             catch (Exception e)
             {
-                return "it doesn't:" + e.Message;
+                if (e.InnerException != null)
+                {
+                    return "it doesn't:" + e.InnerException.Message;
+                }
+                else
+                {
+                    return "it does not: " + e.Message;
+                }
                 //return this.Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
             }
         }
