@@ -5,6 +5,7 @@
     using CruellaDeVillImageGallery.Models;
     using CruellaDeVillImageGallery.Repositories;
     using System.Collections.Generic;
+    using NotificationHandler;
 
     public class CommentsController : BaseApiController
     {
@@ -16,6 +17,7 @@
             {
                 var userId = UsersRepository.LoginUser(sessionKey);
                 var comment = CommentsRepository.PostComment(userId, commentModel);
+                NotificationHandler.PublishNotification(comment.Body.ToString(), userId);
                 return comment;
             });
             return response;
@@ -27,7 +29,6 @@
         {
             var response = this.PerformOperation(() =>
             {
-                //var userId = UsersRepository.LoginUser(sessionKey);
                 CommentsRepository.DeleteComment(commentId);
             });
 
@@ -50,8 +51,10 @@
                         PictureId = com.PictureId
                     });
                 }
+
                 return commentModels;
             });
+
             return response;
         }
     }

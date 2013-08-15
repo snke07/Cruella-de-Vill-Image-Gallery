@@ -22,6 +22,12 @@ namespace CruellaDeVillImageGallery
                 );
 
             config.Routes.MapHttpRoute(
+                name: "CommentsApi",
+                routeTemplate: "api/comments/{commentId}/{action}/{sessionKey}",
+                defaults: new { controller = "comments" }
+                );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{sessionKey}",
                 defaults: new { sessionKey = RouteParameter.Optional }
