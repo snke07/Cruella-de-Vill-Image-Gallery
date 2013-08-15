@@ -4,48 +4,34 @@ using System.Linq;
 using System.Web;
 using CruellaDeVillImageGallery.Data;
 using CruellaDeVillImageGallery.Models;
-//using Dropbox;
+using Dropbox;
 
 namespace CruellaDeVillImageGallery.Repositories
 {
     public class PicturesRepository : BaseRepository
     {
         private ImageLibraryEntities context;
-        //private DropboxClient client;
+        private DropboxClient client;
+
         public PicturesRepository()
         {
             this.context = new ImageLibraryEntities();
-            //this.client = new DropboxClient();
+            this.client = new DropboxClient();
         }
 
         public int AddImage(int albumnId, string title, string fileName, string filePath)
         {
-            //this.client.UploadFile(filePath, fileName);
+            this.client.UploadFile(filePath, fileName);
             Picture pic = new Picture();
-            //pic.AlbumId = albumnId;
-            //pic.Title = title;
-            //pic.BaseUrl = this.client.UploadFile(filePath, fileName);
-            //pic.ThumbUrl = pic.BaseUrl;
-            //context.Pictures.Add(pic);
+            pic.AlbumId = albumnId;
+            pic.Title = title;
+            pic.BaseUrl = this.client.UploadFile(filePath, fileName);
+            pic.ThumbUrl = pic.BaseUrl;
+            context.Pictures.Add(pic);
 
-            //context.SaveChanges();
+            context.SaveChanges();
 
             return pic.Id;
-        }
-
-        public IEnumerable<PictureModel> GetImage(int albumId)
-        {
-            var selected = (from picture in context.Pictures
-                            where picture.AlbumId == albumId
-                            select new PictureModel()
-                            {
-                                Id = picture.Id,
-                                Title = picture.Title,
-                                PictureUrl = picture.BaseUrl,
-                                ThumbUrl = picture.ThumbUrl
-                            }).ToList();
-
-            return selected;
         }
 
         public void RemoveImage(int id)

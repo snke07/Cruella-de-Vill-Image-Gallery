@@ -1,38 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using CruellaDeVillImageGallery.Repositories;
-using CruellaDeVillImageGallery.Models;
-
-namespace CruellaDeVillImageGallery.Controllers
+﻿namespace CruellaDeVillImageGallery.Controllers
 {
+    using System.Net.Http;
+    using System.Web.Http;
+    using CruellaDeVillImageGallery.Models;
+    using CruellaDeVillImageGallery.Repositories;
+    using System.Collections.Generic;
+    using System.Net;
+    using System;
+    using System.IO;
+    using System.Web;
+    using System.Threading.Tasks;
+
     public class PicturesController : BaseApiController
     {
         PicturesRepository repo = new PicturesRepository();
 
-        /// <summary>
-        /// Uploads files and returns an HTTP response message with request response files info.
-        /// </summary>
-        [HttpPost]
-        public async Task<HttpResponseMessage> UploadFiles()
+        [HttpDelete]
+        [ActionName("delete")]
+        public HttpResponseMessage DeleteAlbum(string sessionKey, int id)
         {
+            var response = this.PerformOperation(() =>
+            {
+                var userId = UsersRepository.LoginUser(sessionKey);
+                repo.RemoveImage(id);
+            });
+
+            return response;
+        }
+
+        [HttpPost]
+        [ActionName("add")]
+        public async Task<HttpResponseMessage> AddAlbum(string sessionKey, int albumId, string title)
+        {
+            string addressString = @"current.jpg";
+
+            //addressString = LOCAL_TEST_ADDRESS;
+
             if (!this.Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            MultipartMemoryStreamProvider provider = await this.Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider());
+            MultipartMemoryStreamProvider provider = await Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider());
 
             foreach (var content in provider.Contents)
             {
-                Stream st = content.ReadAsStreamAsync().Result;
+                Stream st = await content.ReadAsStreamAsync();
 
-                using (FileStream writer = File.Create(@"currnet.jpg"))
+                using (FileStream writer = File.Create(addressString))
                 {
                     byte[] buffer = new byte[8 * 1024];
                     int len;
@@ -44,27 +58,11 @@ namespace CruellaDeVillImageGallery.Controllers
                 }
             }
 
-            var title = HttpUtility.ParseQueryString(this.Request.RequestUri.Query).Get("title");
-            var albumId = int.Parse(HttpUtility.ParseQueryString(this.Request.RequestUri.Query).Get("album_id"));
-
-            var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", @"currnet.jpg");
+            var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", addressString);
             
             var response = this.Request.CreateResponse(HttpStatusCode.Created, id);
             return response;
         }
-
-        [HttpGet]
-        public IEnumerable<PictureModel> GetByAlbumId(int albumId)
-        {
-            return repo.GetImage(albumId);
-        }
-
-        [HttpDelete]
-        public HttpResponseMessage DeletePictureById(int id)
-        {
-            repo.RemoveImage(id);
-
-            return this.Request.CreateResponse(HttpStatusCode.OK);
-        }
     }
 }
+

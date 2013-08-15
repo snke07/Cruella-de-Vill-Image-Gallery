@@ -216,7 +216,6 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\album96.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -303,15 +302,11 @@
       <DependentUpon>ImageLibraryModel.edmx</DependentUpon>
       <LastGenOutput>ImageLibraryModel.cs</LastGenOutput>
     </Content>
-    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\class.js" />
     <Content Include="Scripts\controller.js" />
     <Content Include="Scripts\http-requester.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
@@ -368,6 +363,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DropboxClient\DropboxClient.csproj">
+      <Project>{afdfedae-7035-4a9a-b78d-952ac217bbd6}</Project>
+      <Name>DropboxClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotificationHandler\NotificationHandler.csproj">
+      <Project>{aac56a61-3193-45f4-bc53-5d100c1126ea}</Project>
+      <Name>NotificationHandler</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

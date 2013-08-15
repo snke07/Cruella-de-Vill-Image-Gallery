@@ -4,6 +4,8 @@
     using System.Web.Http;
     using CruellaDeVillImageGallery.Models;
     using CruellaDeVillImageGallery.Repositories;
+    using System.Collections.Generic;
+    using NotificationHandler;
 
     public class CommentsController : BaseApiController
     {
@@ -15,6 +17,7 @@
             {
                 var userId = UsersRepository.LoginUser(sessionKey);
                 var comment = CommentsRepository.PostComment(userId, commentModel);
+                NotificationHandler.PublishNotification(comment.Body.ToString(), userId);
                 return comment;
             });
             return response;
@@ -26,7 +29,6 @@
         {
             var response = this.PerformOperation(() =>
             {
-                //var userId = UsersRepository.LoginUser(sessionKey);
                 CommentsRepository.DeleteComment(commentId);
             });
 
@@ -39,10 +41,20 @@
         {
             var response = this.PerformOperation(() =>
             {
-                var userId = UsersRepository.LoginUser(sessionKey);
-                var comments = CommentsRepository.GetAllComments(userId);
-                return comments;
+                var comments = CommentsRepository.GetAllComments(pictureId);
+                var commentModels = new List<CommentModel>();
+                foreach (var com in comments)
+                {
+                    commentModels.Add(new CommentModel()
+                    {
+                        Body = com.Body,
+                        PictureId = com.PictureId
+                    });
+                }
+
+                return commentModels;
             });
+
             return response;
         }
     }
