@@ -3,30 +3,61 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title Image Library</title>
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/sammy")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
-            </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </nav>
+     <div id="navContainer">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- COLLAPSE BUTTON -->
+                    <button class="btn btn-navbar" type="button" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- BRAND -->
+                    <a class="brand" data-bind="attr: { href: currentUserID() ? '#overview' : '#' }">Image Library</a>
+                    <!-- LOGGED USER MENU -->
+                    <div class="nav-collapse collapse" data-bind="visible: currentUserID">
+                        <!-- PAGES -->
+                        <ul class="nav" data-bind="foreach: pages">
+                            <li data-bind="attr: { class: $data == $parent.currentPage() ? 'active' : '' }">
+                                <a data-bind="text: $data, click: $parent.gotoPage"></a>
+                            </li>
+                        </ul>
+                        <form id="logoutForm" class="navbar-form pull-right" method="post" action="http://localhost:53384/api/login">
+                            <button id="logoutBtn" class="btn" data-bind="click: logout">Sign out</button>
+                        </form>
+                    </div>
+                    <!-- DEFAULT MENU -->
+                    <div class="nav-collapse collapse" data-bind="visible: !currentUserID()">
+                        <!-- LOGIN FORM -->
+                        <form id="loginForm" class="navbar-form pull-right" method="post" action="api/users/login">
+                            <input id="loginMail" class="span2" type="text" placeholder="Email" data-bind="click: hidePopover">
+                            <input id="loginPass" class="span2" type="password" placeholder="Password" data-bind="click: hidePopover">
+                            <button id="loginBtn" type="submit" class="btn" data-bind="click: login">Sign in</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
+    </div>
+    <script src="~/Scripts/navigationViewModel.js"></script>
+    <script>
+        (function () {
+            ko.applyBindings(
+                new NavigationViewModel(),
+                document.getElementById('navContainer'));
+        }());
+    </script>
     @RenderBody()
-
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
