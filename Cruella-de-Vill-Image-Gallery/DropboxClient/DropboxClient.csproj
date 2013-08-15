@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DropboxClient.cs" />
-    <Compile Include="Init.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
