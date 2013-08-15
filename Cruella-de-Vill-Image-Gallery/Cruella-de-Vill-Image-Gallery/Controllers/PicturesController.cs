@@ -64,7 +64,7 @@
                 var response = this.PerformOperation(() =>
                 {
                     var userId = UsersRepository.LoginUser(sessionKey);
-                    var pictures = repo.GetImagesByAlbumId(albumId);
+                    var pictures = new PicturesRepository().GetImagesByAlbumId(albumId);
 
                     return pictures;
                 });
