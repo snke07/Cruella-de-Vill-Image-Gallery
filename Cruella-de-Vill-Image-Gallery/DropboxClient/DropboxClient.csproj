@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AFDFEDAE-7035-4A9A-B78D-952AC217BBD6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Dropbox_Example</RootNamespace>
     <AssemblyName>Dropbox-Example</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
