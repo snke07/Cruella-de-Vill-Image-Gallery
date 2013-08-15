@@ -45,4 +45,23 @@
             <button id="addAlbumSubmit" class="btn btn-primary">Add</button>
         </div>
     </div>
+
+    <div pub-key="pub-c-de7a8d7a-782c-4d22-97cc-8bf78fc2e08d"
+         sub-key="sub-c-436627b2-0597-11e3-a005-02ee2ddab7fe"
+         ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    <script src="http://cdn.pubnub.com/pubnub-3.5.3.min.js"></script>
+    <h1>Listening for messages from Pubnub...</h1>
+    <textarea id="messagesArea" style="width:100px; height:100px"></textarea>
+    <script>
+        (function () {
+            document.write("")
+            PUBNUB.subscribe({
+                channel: "Cruela Devil-channel",
+                callback: function (message) {
+                    message.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    document.getElementById('messagesArea').innerHTML += message + '\n';
+                }
+            });
+        })();
+    </script>
 </div>
