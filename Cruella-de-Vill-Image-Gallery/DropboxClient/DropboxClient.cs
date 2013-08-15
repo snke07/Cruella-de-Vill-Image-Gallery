@@ -14,7 +14,7 @@
         private const string DropboxAppKey = "ouwcjfmnx8wj0il";
         private const string DropboxAppSecret = "m0g9rcuixdfegve";
 
-        private const string OAuthTokenFileName = @"OAuthToken.txt";
+        private const string OAuthTokenFileName = @"../../Users/delqn_000/Desktop/OAuthToken.txt";
         private IDropbox client;
 
         public DropboxClient()
@@ -39,8 +39,7 @@
         public string UploadFile(string filePath, string fileName)
         {
             Entry uploadEntry = client.UploadFileAsync(new FileResource(filePath), "/" + fileName).Result;
-
-            return client.GetShareableLinkAsync("/" + fileName).Result.Url;
+            return client.GetMediaLinkAsync("/" + fileName).Result.Url;
         }
 
         private static OAuthToken LoadOAuthToken()

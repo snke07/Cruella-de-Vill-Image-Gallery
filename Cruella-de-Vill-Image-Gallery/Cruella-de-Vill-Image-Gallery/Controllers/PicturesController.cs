@@ -15,13 +15,15 @@ namespace CruellaDeVillImageGallery.Controllers
     public class PicturesController : BaseApiController
     {
         PicturesRepository repo = new PicturesRepository();
+        private const string LOCAL_TEST_ADDRESS = @"D:\currnet.jpg";
+        private const string CLOUD_ADDRESS = @"current.jpg";
 
-        /// <summary>
-        /// Uploads files and returns an HTTP response message with request response files info.
-        /// </summary>
         [HttpPost]
         public async Task<HttpResponseMessage> UploadFiles()
         {
+            string addressString = CLOUD_ADDRESS;
+            //addressString = LOCAL_TEST_ADDRESS;
+
             if (!this.Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
@@ -32,7 +34,7 @@ namespace CruellaDeVillImageGallery.Controllers
             {
                 Stream st = content.ReadAsStreamAsync().Result;
 
-                using (FileStream writer = File.Create(@"currnet.jpg"))
+                using (FileStream writer = File.Create(addressString))
                 {
                     byte[] buffer = new byte[8 * 1024];
                     int len;
@@ -47,7 +49,7 @@ namespace CruellaDeVillImageGallery.Controllers
             var title = HttpUtility.ParseQueryString(this.Request.RequestUri.Query).Get("title");
             var albumId = int.Parse(HttpUtility.ParseQueryString(this.Request.RequestUri.Query).Get("album_id"));
 
-            var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", @"currnet.jpg");
+            var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", addressString);
             
             var response = this.Request.CreateResponse(HttpStatusCode.Created, id);
             return response;
