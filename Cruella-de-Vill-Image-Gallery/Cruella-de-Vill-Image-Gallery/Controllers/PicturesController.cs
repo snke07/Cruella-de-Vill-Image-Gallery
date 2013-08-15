@@ -10,7 +10,7 @@
 
     public class PicturesController : BaseApiController
     {
-        PicturesRepository repo = new PicturesRepository();
+        //PicturesRepository repo = new PicturesRepository();
 
         [HttpPost]
         [ActionName("create")]
