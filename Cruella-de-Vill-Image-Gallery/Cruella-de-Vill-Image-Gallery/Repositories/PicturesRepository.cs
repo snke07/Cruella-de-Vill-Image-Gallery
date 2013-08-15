@@ -12,10 +12,11 @@ namespace CruellaDeVillImageGallery.Repositories
     {
         private ImageLibraryEntities context;
         private DropboxClient client;
+
         public PicturesRepository()
         {
             this.context = new ImageLibraryEntities();
-            this.client = new DropboxClient();
+            //this.client = new DropboxClient();
         }
 
         public int AddImage(int albumnId, string title, string fileName, string filePath)
