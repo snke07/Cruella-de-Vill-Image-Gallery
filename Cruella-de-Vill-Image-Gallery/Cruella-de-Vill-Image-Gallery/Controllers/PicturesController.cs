@@ -32,36 +32,43 @@
         [ActionName("add")]
         public async Task<HttpResponseMessage> AddAlbum(string sessionKey, int albumId, string title)
         {
-            string addressString = @"current.jpg";
-
-            //addressString = LOCAL_TEST_ADDRESS;
-
-            if (!this.Request.Content.IsMimeMultipartContent())
+            try
             {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-            MultipartMemoryStreamProvider provider = await Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider());
+                string addressString = @"current.jpg";
 
-            foreach (var content in provider.Contents)
-            {
-                Stream st = await content.ReadAsStreamAsync();
+                //addressString = LOCAL_TEST_ADDRESS;
 
-                using (FileStream writer = File.Create(addressString))
+                if (!this.Request.Content.IsMimeMultipartContent())
                 {
-                    byte[] buffer = new byte[8 * 1024];
-                    int len;
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+                MultipartMemoryStreamProvider provider = await Request.Content.ReadAsMultipartAsync<MultipartMemoryStreamProvider>(new MultipartMemoryStreamProvider());
 
-                    while ((len = st.Read(buffer, 0, buffer.Length)) > 0)
+                foreach (var content in provider.Contents)
+                {
+                    Stream st = await content.ReadAsStreamAsync();
+
+                    using (FileStream writer = File.Create(addressString))
                     {
-                        writer.Write(buffer, 0, len);
+                        byte[] buffer = new byte[8 * 1024];
+                        int len;
+
+                        while ((len = st.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            writer.Write(buffer, 0, len);
+                        }
                     }
                 }
-            }
 
-            var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", addressString);
-            
-            var response = this.Request.CreateResponse(HttpStatusCode.Created, id);
-            return response;
+                var id = repo.AddImage(albumId, title, Guid.NewGuid().ToString() + ".jpg", addressString);
+
+                var response = this.Request.CreateResponse(HttpStatusCode.Created, id);
+                return response;
+            }
+            catch (Exception e)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
+            }
         }
     }
 }
