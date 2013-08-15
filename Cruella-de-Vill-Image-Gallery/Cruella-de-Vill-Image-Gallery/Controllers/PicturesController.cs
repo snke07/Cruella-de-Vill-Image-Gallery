@@ -57,7 +57,7 @@
 
         [HttpGet]
         [ActionName("getByAlbum")]
-        public string GetAll(string sessionKey, int albumId)
+        public HttpResponseMessage GetAll(string sessionKey, int albumId)
         {
             try
             {
@@ -68,20 +68,12 @@
 
                     return pictures;
                 });
-                return "it works";
-                //return response;
+                
+                return response;
             }
             catch (Exception e)
             {
-                if (e.InnerException != null)
-                {
-                    return "it doesn't:" + e.InnerException.Message;
-                }
-                else
-                {
-                    return "it does not: " + e.Message;
-                }
-                //return this.Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
+                return this.Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
             }
         }
 
