@@ -40,6 +40,11 @@ namespace CruellaDeVillImageGallery.Repositories
                              where picture.Id == id
                              select picture).FirstOrDefault();
 
+            if (picEntity == null)
+            {
+                return;
+            }
+
             context.Pictures.Remove(picEntity);
             context.SaveChanges();
         }
